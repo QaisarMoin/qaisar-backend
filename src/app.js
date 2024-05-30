@@ -20,4 +20,4 @@ app.use(express.static("public"));
 app.use(cookieParser());
 // express.static() ka use file ko mere server mein store karne liye use hota hai
 
-export { app };
+export default app;

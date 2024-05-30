@@ -5,7 +5,7 @@ class apiError extends Error {
     statusCode,
     message = "something went wrong",
     errors = [],
-    statck = ""
+    stack = ""
   ) {
     // super means isko toh karna he hai
     super(message);
@@ -15,8 +15,8 @@ class apiError extends Error {
     this.data = null;
     this.sucess = false;
 
-    if (statck) {
-      this.stack = statck;
+    if (stack) {
+      this.stack = stack;
     } else {
       Error.captureStackTrace(this, this.constructor);
     }
