@@ -1,10 +1,10 @@
 class apiResponse {
-  constructor(statusCode, message = "Sucess", data) {
-    this.statusCode = statusCode;
-    this.message = message;
-    this.success = statusCode < 400;
-    this.data = data;
-  }
+   constructor(statusCode, message = "Sucess", data) {
+      this.statusCode = statusCode;
+      this.message = message;
+      this.success = statusCode < 400;
+      this.data = data;
+   }
 }
 
 /*  STATUS CODE
@@ -14,3 +14,5 @@ class apiResponse {
     4) client error response = 400 - 499
     5) server error response = 500 - 599
  */
+
+export { apiResponse };
