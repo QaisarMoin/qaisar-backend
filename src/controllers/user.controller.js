@@ -31,9 +31,9 @@ const registerUser = asyncHandler(async (req, res) => {
    }
 
    //2) and 3)
-   const existedUser = User.findOne({
-      // $or: [iske andar object mein parametre pass kardo toh $or: dhundega username and email dono mein se kuch phle se exit karta hai ]
+   const existedUser = await User.findOne({
       $or: [{ username }, { email }],
+      // $or: [iske andar object mein parametre pass kardo toh $or: dhundega username and email dono mein se kuch phle se exit karta hai ]
    });
 
    if (existedUser) {
@@ -43,7 +43,21 @@ const registerUser = asyncHandler(async (req, res) => {
    //4)hamne user.routes mein ek middelware insert kiye teh multer wala. wo middelware req mein or property add kardeta hai like .files
    const avatarLocalpath = req.files?.avatar[0]?.path; //multer save file ke first property se path nikal ke dedo
 
-   const coverImageLocalpath = req.files?.coverImage[0]?.path;
+   // const coverImageLocalpath = req.files?.coverImage[0]?.path;
+   //upper wale code mein galti ye hai ke jab coverImageLocalPath mein kuch gaya he nahi toh wo undefine ho jata hai
+
+   let coverImageLocalpath;
+   if (
+      req.files &&
+      Array.isArray(req.files.coverImage) &&
+      req.files.coverImage.length > 0
+   ) {
+      coverImageLocalpath = req.files.coverImage[0].path;
+   }
+
+   if (!coverImageLocalpath) {
+      coverImageLocalpath = "";
+   }
 
    if (!avatarLocalpath) {
       throw new apiError(400, "Avatar file is required");
